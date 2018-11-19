@@ -121,4 +121,4 @@ if (message.content.toLowerCase().startsWith(prefix + `c`)) {
 
 });
 
-client.login(client.login(process.env.BOT_TOKEN););
+client.login(process.env.BOT_TOKEN);
