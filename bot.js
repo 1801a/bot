@@ -16,7 +16,6 @@ client.on("ready", () => {
 
 }
 
-const devs = ['513503271885864960'];
 client.on('message', message => {
   if (message.content.startsWith(prefix + 'sst')) {
     client.user.setGame(argresult, "https://www.twitch.tv/gamer");
