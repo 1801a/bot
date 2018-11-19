@@ -15,10 +15,10 @@ client.on("ready", () => {
 });
 
 }
-const prefix = "--";
+
 const devs = ['513503271885864960'];
 client.on('message', message => {
-  if (message.content.startsWith(adminprefix + 'sst')) {
+  if (message.content.startsWith(prefix + 'sst')) {
     client.user.setGame(argresult, "https://www.twitch.tv/gamer");
       message.channel.send(`**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . ${argresult} **`)
 	  
