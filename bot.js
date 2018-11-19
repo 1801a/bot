@@ -16,11 +16,6 @@ client.on("ready", () => {
 
 }
 
-client.on('message', message => {
-  if (message.content.startsWith(prefix + 'sst')) {
-    client.user.setGame(argresult, "https://www.twitch.tv/gamer");
-      message.channel.send(`**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . ${argresult} **`)
-	  
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
