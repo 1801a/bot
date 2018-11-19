@@ -15,41 +15,13 @@ client.on("ready", () => {
 });
 
 }
-const adminprefix = "+";
+const prefix = "--";
 const devs = ['513503271885864960'];
 client.on('message', message => {
-  var argresult = message.content.split(` `).slice(1).join(' ');
-    if (!devs.includes(message.author.id)) return;
-	
-     if (message.content.startsWith(adminprefix + 'ply')) {
-    client.user.setGame(argresult);
-      message.channel.send(`**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين .   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'wat')) {
-  client.user.setActivity(argresult, {type:'WATCHING'});
-      message.channel.send(`**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين .   ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'lis')) {
-  client.user.setActivity(argresult , {type:'LISTENING'});
-      message.channel.send(`**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين .  ${argresult}**`)
-  } else 
-  if (message.content.startsWith(adminprefix + 'st')) {
+  if (message.content.startsWith(adminprefix + 'sst')) {
     client.user.setGame(argresult, "https://www.twitch.tv/gamer");
       message.channel.send(`**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . ${argresult} **`)
-  }
-  if (message.content.startsWith(adminprefix + 'setname')) {
-client.user.setUsername(argresult).then
-    message.channel.sendMessage(`**${argresult}** : تم تغيير أسم البوت إلى`)
-return message.reply("**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . **");
-} else
-  if (message.content.startsWith(adminprefix + 'setavatar')) {
-client.user.setAvatar(argresult);
-  message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
-      } 
-});
-
-
-
+	  
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
