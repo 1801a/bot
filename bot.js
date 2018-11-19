@@ -121,4 +121,4 @@ if (message.content.toLowerCase().startsWith(prefix + `c`)) {
 
 });
 
-client.login("NTEzODY5MzEwNzQ2Mjk2MzQy.DtOSew.gqVcy4DWx59ZkfD7LLVFTWKvvpQ");
+client.login(client.login(process.env.BOT_TOKEN););
