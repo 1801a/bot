@@ -24,9 +24,9 @@ client.on('message', async message => {
     var fromwhere = '';// Alpha Codes
     var fa2dh = '';// Alpha Codes
     var filter = m => m.author.id === message.author.id;// Alpha Codes
-    var subChannel = message.guild.channels.find(c => c.name === 'js');// Alpha Codes
+    var subChannel = message.guild.channels.find(c => c.name === 'support-join');// Alpha Codes
    
-    if(command == prefix + 'join-support') {// Alpha Codes
+    if(command == prefix + 'js') {// Alpha Codes
         if(message.author.bot) return;
         if(message.channel.type === 'dm') return;
  
