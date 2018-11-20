@@ -15,6 +15,124 @@ client.on("ready", () => {
   client.user.setGame(`Support Magic |${prefix}new`);
 });
 
+
+client.on('message', async message => {
+    var command = message.content.toLowerCase().split(" ")[0];
+    var prefix = '--';
+    var name = '';
+    var age = '';
+    var fromwhere = '';
+    var fa2dh = '';
+    var filter = m => m.author.id === message.author.id;
+    var subChannel = message.guild.channels.find(c => c.name === 'support');
+   
+    if(command == prefix + 'js') {
+        if(message.author.bot) return;
+        if(message.channel.type === 'dm') return;
+ 
+        var modRole = message.guild.roles.find(r => r.name === '✠ Team Support');
+       
+        if(message.guild.member(message.author).roles.has(modRole.id)) return message.channel.send(':x: | معك الرتبة');
+        if(!subChannel) return message.channel.send(':x: | يجب ان يتوفر روم اسمه `support`');
+       
+        message.channel.send(':timer: | **اكتب اسمك الحقيقي الان من فضلك**').then(msgS => {
+            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                name = collected.first().content;
+                collected.first().delete();
+                msgS.edit(':timer: | **من فضلك اكتب عمرك الان**').then(msgS => {
+                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                        age = collected.first().content;
+                        collected.first().delete();
+                        msgS.edit(':timer: | **من فضلك اكتب من اي بلد انت**').then(msgS => {
+                            message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                                fromwhere = collected.first().content;
+                                collected.first().delete();
+                                msgS.edit(':timer: | **من فضلك اكتب سبب تقديمك على الرتبة والمهارات اللتي لديك لتقديمها**').then(msgS => {
+                                    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
+                                        fa2dh = collected.first().content;
+                                        collected.first().delete();
+                                       
+                                        let embedS = new Discord.RichEmbed()
+                                        .setAuthor(message.author.tag, message.author.avatarURL)
+                                        .setThumbnail(message.author.avatarURL)
+                                        .setDescription('**\n:no_entry: هل انت متأكد انك تريد التقديم؟**')
+                                        .setColor('GREEN')
+                                        .addField('الاسم', name, true)
+                                        .addField('العمر', age, true)
+                                        .addField('من وين', fromwhere, true)
+                                        .addField('المهارات وسبب التقديم على الرتبة', fa2dh, true)
+                                        .setTimestamp()
+                                        .setFooter(message.guild.name, message.guild.iconURL)
+                                       
+                                        msgS.delete();
+                                        message.channel.send(embedS).then(msgS => {
+                                            msgS.react('✅').then(() => msgS.react('❎'))
+                                           
+                                            let yesSure = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
+                                            let no = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
+                                           
+                                            let yesSend = msgS.createReactionCollector(yesSure);
+                                            let dontSend = msgS.createReactionCollector(no);
+                                           
+                                            yesSend.on('collect', r => {
+                                                msgS.delete();
+                                                message.channel.send(':white_check_mark: | تم تقديم طلبك بنجاح انتظر النتيجة في روم support-accept').then(msg => msg.delete(5000));
+                                               
+                                                let subMsg = new Discord.RichEmbed()
+                                                .setAuthor(message.author.tag, message.author.avatarURL)
+                                                .setColor('GREEN')
+                                                .setThumbnail(message.author.avatarURL)
+                                                .addField('الاسم', name)
+                                                .addField('العمر', age)
+                                                .addField('من وين', fromwhere)
+                                                .addField('لماذا يريد التقديم', fa2dh)
+                                                .addField('حسابه', message.author)
+                                                .addField('ايدي حسابه', message.author.id, true)
+                                               
+                                                subChannel.send(subMsg).then(msgS => {
+                                                    msgS.react('✅').then(() => msgS.react('❎'))
+                                                   
+                                                    let accept = (reaction, user) => reaction.emoji.name === '✅'  && user.id === '504392863451316224'
+                                                    let noAccept = (reaction, user) => reaction.emoji.name === '❎' && user.id === '504392863451316224'
+                                                   
+                                                    let acceptRe = msgS.createReactionCollector(accept);
+                                                    let noAcceptRe = msgS.createReactionCollector(noAccept);
+                                                   
+                                                    acceptRe.on('collect', r => {
+                                                        msgS.delete();
+                                                        message.author.send(`:white_check_mark: | تم قبولك اداري بسيرفر **${message.guild.name}**`);
+                                                        message.guild.member(message.author).addRole(modRole.id);
+                                                        message.guild.channels.find(r => r.name === 'support-accept').send(`:white_check_mark: | تم قبولك [ <@${message.author.id}> ]`);
+                                                    }).catch();
+                                                    noAcceptRe.on('collect', r => {
+                                                        msgS.delete();
+                                                        message.author.send(`:x: | تم رفضك بسيرفر **${message.guild.name}**`);
+                                                        message.guild.channels.find(r => r.name === 'support-accept').send(`:x: | تم رفضك [ <@${message.author.id}> ]`);
+                                                    }).catch();
+                                                })
+                                            });
+                                            dontSend.on('collect', r => {
+                                                msgS.delete();
+                                                message.channel.send(':x: | تم الغاء تقديمك');
+                                            });
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    }
+});
+
+
+
+
+
+
+
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -23,7 +141,7 @@ client.on("message", (message) => {
     .setTitle(`:mailbox_with_mail: Joy Help`)
     .setColor(0xCF40FA)
     .setDescription(`هذا البوت للمساعدة فقط `)
-    .addField(`Tickets`, `[${prefix}n]() > **يفتح تذكرة جديدة ويضع علامات على فريق الدعم**\n[${prefix}c]() > **يغلق تذكرة تم حلها أو تم فتحها عن طريق الصدفة**
+    .addField(`Tickets`, `[${prefix}n]() > **يفتح تذكرة جديدة ويضع علامات على فريق الدعم**\n[${prefix}c]() > **يغلق تذكرة تم حلها أو تم فتحها عن طريق الصدفة**\n[${prefix}js]() > **لتقديم طلب انضم الي تيم سبورت **
 `)
     .addField(`Other`, `[${prefix}help]() > **يظهر لك هذه القائمة تعليمات القراءة الخاصة بك**\n[${prefix}ping]() **قم بتدوير البرنامج لمعرفة المدة التي يستغرقها التفاعل**\n[${prefix}about]() > **يخبركم كل شيء**`)
     message.channel.send({ embed: embed });
