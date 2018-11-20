@@ -15,25 +15,25 @@ client.on("ready", () => {
   client.user.setGame(`Support Magic |${prefix}new`);
 });
 
-
+// Alpha Codes,// Alpha Codes,// Alpha Codes
 client.on('message', async message => {
     var command = message.content.toLowerCase().split(" ")[0];
-    var prefix = '--';
-    var name = '';
-    var age = '';
-    var fromwhere = '';
-    var fa2dh = '';
-    var filter = m => m.author.id === message.author.id;
-    var subChannel = message.guild.channels.find(c => c.name === 'support');
+    var prefix = '--';// Alpha Codes
+    var name = '';// Alpha Codes
+    var age = '';// Alpha Codes
+    var fromwhere = '';// Alpha Codes
+    var fa2dh = '';// Alpha Codes
+    var filter = m => m.author.id === message.author.id;// Alpha Codes
+    var subChannel = message.guild.channels.find(c => c.name === 'support-join');// Alpha Codes
    
-    if(command == prefix + 'js') {
+    if(command == prefix + 'join-support') {// Alpha Codes
         if(message.author.bot) return;
         if(message.channel.type === 'dm') return;
  
-        var modRole = message.guild.roles.find(r => r.name === '✠ Team Support');
+        var modRole = message.guild.roles.find(r => r.name === 'Support Team');// Alpha Codes
        
-        if(message.guild.member(message.author).roles.has(modRole.id)) return message.channel.send(':x: | معك الرتبة');
-        if(!subChannel) return message.channel.send(':x: | يجب ان يتوفر روم اسمه `support`');
+        if(message.guild.member(message.author).roles.has(modRole.id)) return message.channel.send(':x: | معك الرتبة');// Alpha Codes
+        if(!subChannel) return message.channel.send(':x: | يجب ان يتوفر روم اسمه `support-join`');// Alpha Codes
        
         message.channel.send(':timer: | **اكتب اسمك الحقيقي الان من فضلك**').then(msgS => {
             message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(collected => {
@@ -110,10 +110,10 @@ client.on('message', async message => {
                                                         message.guild.channels.find(r => r.name === 'support-accept').send(`:x: | تم رفضك [ <@${message.author.id}> ]`);
                                                     }).catch();
                                                 })
-                                            });
+                                            });// Alpha Codes
                                             dontSend.on('collect', r => {
                                                 msgS.delete();
-                                                message.channel.send(':x: | تم الغاء تقديمك');
+                                                message.channel.send(':x: | تم الغاء تقديمك');// Alpha Codes
                                             });
                                         })
                                     })
@@ -126,11 +126,6 @@ client.on('message', async message => {
         })
     }
 });
-
-
-
-
-
 
 
 client.on("message", (message) => {
