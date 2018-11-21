@@ -22,12 +22,18 @@ client.on('message', message => {
     }
 });
 
-client.on('message', message => {
-     if (message.content === ("-57")) {
-     message.author.send("مبروك انت فوزت ");
-  message.channel.send("Email")
-    }
-});
+client.on("message", message => {
+	var prefix = "-";
+ if (message.content === "57") {
+  const embed = new Discord.RichEmbed()  
+      .setColor("#000000") 
+      .setDescription(`**مبروك انت فوزت**
+Uplay : tylerk@gmail.com:Asurutrj1`)
+   message.channel.sendEmbed(embed)
+    
+   }
+   }); 
+
 
 client.on('message', message => {
      if (message.content === ("15as31")) {
