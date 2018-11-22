@@ -198,7 +198,7 @@ if (message.content.toLowerCase().startsWith(prefix + `c`)) {
 
 client.on('message' , async (message) => {
 var prefix = "!"
-    if(message.content.startsWith(prefix + "!top")) {
+    if(message.content.startsWith(prefix + "top")) {
 if(message.author.bot) return;
 if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
   var invites = await message.guild.fetchInvites();
